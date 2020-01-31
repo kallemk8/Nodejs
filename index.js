@@ -1,15 +1,24 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 const courses = require('./routes/courses');
+const teams = require('./routes/teams');
 const home = require('./routes/home');
+mongoose.connect('mongodb://localhost/playground')
+    .then(()=> console.log('Connected to mongodb'))
+    .catch(err => console.log('could not connect to mongodb'));
+   
 app.set('view engine', 'pug');
 app.set('views', './views')
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'))
 app.use('/app/courses', courses);
+app.use('/app/teams', teams);
 app.use('/', home);
 app.listen(5000, ()=> console.log("50000"))
+
+
 //const startupDebugger = require('debug')('app:startup');
 //const dbDebugger = require('debug')('app:db');
 //const config = require('config');
@@ -70,7 +79,7 @@ function getusers(id){
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
             console.log("reading a user form a database ...");
-            reject(new Error('Message'));
+            //reject(new Error('Message'));
            // resolve({id:id, githubusername: "kallem k8"});
         }, 2000)
     })
@@ -104,7 +113,7 @@ async function displaycommits() {
     }
     
 }
-displaycommits
+//displaycommits()
 //user.then(users=>console.log(users))
 
 //async/await
