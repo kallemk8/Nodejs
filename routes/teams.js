@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const {Course} = require('../model/team');
-router.get('/',async (req,res)=>{
+const auth = require('../middleware/auth');
+const admin = require('../middleware/isadmin');
+router.get('/',[auth, admin], async (req,res)=>{
+    //console.log(req.user._id);
     const courses = await Course
         .find()
         .sort({name:1});
     res.send(courses);
     
 });
-router.post('/',async (req,res)=>{
+router.post('/',auth, async (req,res)=>{
     const course = new Course({
         name:req.body.name,
         author: req.body.author,

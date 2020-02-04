@@ -5,6 +5,8 @@ const courses = require('./routes/courses');
 const teams = require('./routes/teams');
 const population = require('./routes/population');
 const player = require('./routes/player');
+const user = require('./routes/user');
+const login = require('./routes/login');
 const country = require('./routes/country');
 const home = require('./routes/home');
 mongoose.connect('mongodb://localhost/playground')
@@ -20,6 +22,8 @@ app.use('/app/courses', courses);
 app.use('/app/teams', teams);
 app.use('/app/population', population);
 app.use('/api/players', player);
+app.use('/api/user', user);
+app.use('/api/login', login);
 app.use('/api/country', country);
 app.use('/', home);
 app.listen(5000, ()=> console.log("50000"))
