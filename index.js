@@ -9,7 +9,8 @@ const user = require('./routes/user');
 const login = require('./routes/login');
 const country = require('./routes/country');
 const home = require('./routes/home');
-mongoose.connect('mongodb://localhost/playground')
+const upload = require('./routes/upload');
+mongoose.connect('mongodb://localhost/playground',{ useUnifiedTopology: true, useNewUrlParser: true})
     .then(()=> console.log('Connected to mongodb'))
     .catch(err => console.log('could not connect to mongodb'));
    
@@ -25,6 +26,7 @@ app.use('/api/players', player);
 app.use('/api/user', user);
 app.use('/api/login', login);
 app.use('/api/country', country);
+app.use('/api/upload', upload);
 app.use('/', home);
 app.listen(5000, ()=> console.log("50000"))
 

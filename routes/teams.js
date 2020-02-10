@@ -5,10 +5,15 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/isadmin');
 router.get('/',[auth, admin], async (req,res)=>{
     //console.log(req.user._id);
-    const courses = await Course
+    try {
+        const courses = await Course
         .find()
         .sort({name:1});
-    res.send(courses);
+        res.send(courses);
+    }catch(ex){
+        res.status(500).send('Something failed');
+    }
+    
     
 });
 router.post('/',auth, async (req,res)=>{
